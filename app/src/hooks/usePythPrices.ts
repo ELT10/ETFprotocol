@@ -40,6 +40,10 @@ interface UsePythPricesResult {
     lastUpdated: Date | null;
 }
 
+function isLikelyMint(value: string): boolean {
+    return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(value);
+}
+
 function normalizeQueries(options: { symbols?: string[]; queries?: PriceQuery[] }): NormalizedPriceQuery[] {
     const normalized: NormalizedPriceQuery[] = [];
     const keyIndex = new Map<string, number>();
@@ -124,6 +128,7 @@ export function usePythPrices({
 
             const pythSymbolsByCanonical = new Map<string, string>();
             for (const query of activeQueries) {
+                if (isLikelyMint(query.key)) continue;
                 if (!query.pythSymbol || !getFeedIdForSymbol(query.pythSymbol)) continue;
                 const canonical = query.pythSymbol.toUpperCase();
                 if (!pythSymbolsByCanonical.has(canonical)) {
@@ -140,7 +145,7 @@ export function usePythPrices({
             const jupiterFallbackKeys: string[] = [];
 
             for (const query of activeQueries) {
-                const pythSymbol = query.pythSymbol;
+                const pythSymbol = isLikelyMint(query.key) ? undefined : query.pythSymbol;
                 const canonicalSymbol = pythSymbol?.toUpperCase();
                 const pythPrice =
                     pythSymbol && canonicalSymbol
@@ -178,7 +183,7 @@ export function usePythPrices({
                         loading: false,
                     });
                 } else {
-                    const mockLookup = query.pythSymbol || query.key;
+                    const mockLookup = isLikelyMint(query.key) ? query.key : (query.pythSymbol || query.key);
                     const mockPrice = getMockPrice(mockLookup);
                     resultPrices.set(query.key, {
                         symbol: query.key,
@@ -202,7 +207,7 @@ export function usePythPrices({
             // Fallback to mock prices on error
             const fallbackPrices = new Map<string, PriceData>();
             for (const query of activeQueries) {
-                const mockLookup = query.pythSymbol || query.key;
+                const mockLookup = isLikelyMint(query.key) ? query.key : (query.pythSymbol || query.key);
                 const mockPrice = getMockPrice(mockLookup);
                 fallbackPrices.set(query.key, {
                     symbol: query.key,
