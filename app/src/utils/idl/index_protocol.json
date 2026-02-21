@@ -1,0 +1,974 @@
+{
+  "address": "8vDjxdoFPtdm4Ts4yBHn8GLPwFNaqRjkoiDPjm7w6PYD",
+  "metadata": {
+    "name": "index_protocol",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "accept_admin",
+      "discriminator": [
+        112,
+        42,
+        45,
+        90,
+        116,
+        181,
+        13,
+        170
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "pending_admin",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_index",
+      "discriminator": [
+        205,
+        71,
+        124,
+        117,
+        143,
+        136,
+        104,
+        192
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "index_mint",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "assets",
+          "type": {
+            "vec": "pubkey"
+          }
+        },
+        {
+          "name": "units",
+          "type": {
+            "vec": "u64"
+          }
+        }
+      ]
+    },
+    {
+      "name": "issue_shares",
+      "discriminator": [
+        110,
+        72,
+        179,
+        47,
+        131,
+        109,
+        115,
+        103
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "index_mint",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_index_token_account",
+          "writable": true
+        },
+        {
+          "name": "fee_collector_index_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "token_2022_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        }
+      ],
+      "args": [
+        {
+          "name": "quantity",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "pause_index",
+      "discriminator": [
+        179,
+        16,
+        188,
+        186,
+        103,
+        238,
+        66,
+        158
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "redeem_shares",
+      "discriminator": [
+        239,
+        154,
+        224,
+        89,
+        240,
+        196,
+        42,
+        187
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "index_mint",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_index_token_account",
+          "writable": true
+        },
+        {
+          "name": "fee_collector_index_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "token_2022_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        }
+      ],
+      "args": [
+        {
+          "name": "quantity",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_fee_collector",
+      "discriminator": [
+        143,
+        46,
+        10,
+        113,
+        121,
+        157,
+        245,
+        166
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_fee_collector",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_index_metadata",
+      "discriminator": [
+        102,
+        192,
+        79,
+        83,
+        146,
+        60,
+        248,
+        91
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "set_max_assets",
+      "discriminator": [
+        255,
+        30,
+        87,
+        108,
+        250,
+        54,
+        161,
+        52
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_max_assets",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "set_pending_admin",
+      "discriminator": [
+        248,
+        204,
+        95,
+        229,
+        240,
+        21,
+        219,
+        3
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_trade_fee_bps",
+      "discriminator": [
+        233,
+        118,
+        36,
+        169,
+        99,
+        253,
+        231,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_trade_fee_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "unpause_index",
+      "discriminator": [
+        83,
+        21,
+        2,
+        15,
+        95,
+        204,
+        100,
+        207
+      ],
+      "accounts": [
+        {
+          "name": "index_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  105,
+                  110,
+                  100,
+                  101,
+                  120,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "index_config.index_mint",
+                "account": "IndexConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "index_config"
+          ]
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "IndexConfig",
+      "discriminator": [
+        235,
+        135,
+        160,
+        216,
+        32,
+        122,
+        108,
+        201
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidInputLengths",
+      "msg": "The assets and units arrays must be of equal length."
+    },
+    {
+      "code": 6001,
+      "name": "EmptyAssets",
+      "msg": "At least one asset is required."
+    },
+    {
+      "code": 6002,
+      "name": "TooManyAssets",
+      "msg": "Too many assets in the index."
+    },
+    {
+      "code": 6003,
+      "name": "ZeroUnits",
+      "msg": "Asset units must be greater than zero."
+    },
+    {
+      "code": 6004,
+      "name": "DuplicateAsset",
+      "msg": "Duplicate assets are not allowed."
+    },
+    {
+      "code": 6005,
+      "name": "Overflow",
+      "msg": "Calculation overflow."
+    },
+    {
+      "code": 6006,
+      "name": "InvalidQuantity",
+      "msg": "Quantity must be greater than zero."
+    },
+    {
+      "code": 6007,
+      "name": "SlippageExceeded",
+      "msg": "Slippage limit exceeded."
+    },
+    {
+      "code": 6008,
+      "name": "InvalidAsset",
+      "msg": "Invalid asset in basket."
+    },
+    {
+      "code": 6009,
+      "name": "InvalidVaultAccount",
+      "msg": "Invalid vault account for this index asset."
+    },
+    {
+      "code": 6010,
+      "name": "InvalidTokenAccountOwner",
+      "msg": "Invalid token account owner for this operation."
+    },
+    {
+      "code": 6011,
+      "name": "InvalidMaxAssets",
+      "msg": "Invalid max assets value."
+    },
+    {
+      "code": 6012,
+      "name": "MaxAssetsBelowCurrentComposition",
+      "msg": "Cannot set max assets below current composition size."
+    },
+    {
+      "code": 6013,
+      "name": "IndexPaused",
+      "msg": "Index is paused."
+    },
+    {
+      "code": 6014,
+      "name": "NoPendingAdmin",
+      "msg": "No pending admin is set."
+    },
+    {
+      "code": 6015,
+      "name": "InvalidPendingAdmin",
+      "msg": "Signer is not the pending admin."
+    },
+    {
+      "code": 6016,
+      "name": "InvalidNewAdmin",
+      "msg": "New admin cannot be the default pubkey."
+    },
+    {
+      "code": 6017,
+      "name": "InvalidShareQuantityGranularity",
+      "msg": "Share quantity is not compatible with this index composition granularity."
+    },
+    {
+      "code": 6018,
+      "name": "InvalidAssetAccountCount",
+      "msg": "Invalid number of asset token accounts provided."
+    },
+    {
+      "code": 6019,
+      "name": "InvalidTokenProgramOwner",
+      "msg": "Asset token account is not owned by the expected token program."
+    },
+    {
+      "code": 6020,
+      "name": "InvalidTokenAccountData",
+      "msg": "Failed to decode token account data."
+    },
+    {
+      "code": 6021,
+      "name": "InvalidAssetMintAccount",
+      "msg": "Asset mint account is invalid or missing."
+    },
+    {
+      "code": 6022,
+      "name": "InvalidAssetMintOwner",
+      "msg": "Asset mint account owner does not match configured token program."
+    },
+    {
+      "code": 6023,
+      "name": "UnsupportedAssetTokenProgram",
+      "msg": "Asset token program is unsupported. Only Tokenkeg and Token-2022 are allowed."
+    },
+    {
+      "code": 6024,
+      "name": "UnsupportedToken2022MintExtensions",
+      "msg": "This Token-2022 mint uses unsupported extensions for this protocol."
+    },
+    {
+      "code": 6025,
+      "name": "InvalidAssetAccountLayout",
+      "msg": "Asset remaining accounts must be provided in the expected mint/account tuple layout."
+    },
+    {
+      "code": 6026,
+      "name": "FeeTooHigh",
+      "msg": "Trade fee exceeds the max allowed value."
+    },
+    {
+      "code": 6027,
+      "name": "InvalidFeeCollector",
+      "msg": "Fee collector cannot be the default pubkey."
+    },
+    {
+      "code": 6028,
+      "name": "InvalidFeeCollectorTokenAccount",
+      "msg": "Fee collector token account is invalid."
+    },
+    {
+      "code": 6029,
+      "name": "NetQuantityZeroAfterFees",
+      "msg": "Net share quantity is zero after fees."
+    },
+    {
+      "code": 6030,
+      "name": "EmptyIndexName",
+      "msg": "Index name cannot be empty."
+    },
+    {
+      "code": 6031,
+      "name": "IndexNameTooLong",
+      "msg": "Index name is too long."
+    },
+    {
+      "code": 6032,
+      "name": "IndexDescriptionTooLong",
+      "msg": "Index description is too long."
+    }
+  ],
+  "types": [
+    {
+      "name": "AssetComponent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "units",
+            "type": "u64"
+          },
+          {
+            "name": "token_program",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "IndexConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "index_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "max_assets",
+            "type": "u8"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "pending_admin",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "trade_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "fee_collector",
+            "type": "pubkey"
+          },
+          {
+            "name": "lifetime_fee_shares_total",
+            "type": "u64"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "assets",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "AssetComponent"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "SEED_INDEX_CONFIG",
+      "type": "bytes",
+      "value": "[105, 110, 100, 101, 120, 95, 99, 111, 110, 102, 105, 103]"
+    },
+    {
+      "name": "SEED_VAULT",
+      "type": "bytes",
+      "value": "[118, 97, 117, 108, 116]"
+    }
+  ]
+}

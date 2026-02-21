@@ -1,0 +1,39 @@
+name: Program CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "programs/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "Anchor.toml"
+      - "tests/**"
+      - ".github/workflows/program-ci.yml"
+  pull_request:
+    paths:
+      - "programs/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "Anchor.toml"
+      - "tests/**"
+      - ".github/workflows/program-ci.yml"
+
+jobs:
+  program:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.89.0
+          components: rustfmt, clippy
+
+      - name: Rust workspace check
+        run: cargo check --workspace --locked
+
+      - name: Rust tests
+        run: cargo test --workspace --locked --lib
