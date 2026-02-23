@@ -86,7 +86,7 @@ function buildIndexDisplayMetrics(
         const priceData = priceByMint.get(mint);
         const price = Number.isFinite(priceData?.price) ? Number(priceData?.price) : 0;
         const usdValue = humanAmount * price;
-        const source =
+        const source: AllocationMetric['source'] =
             priceData?.source === 'pyth' || priceData?.source === 'jupiter' ? priceData.source : 'mock';
 
         return {
@@ -137,25 +137,24 @@ function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): 
     });
 }
 
-function readU64LittleEndian(data: Uint8Array, offset: number): bigint | null {
+function hasNonZeroU64LittleEndian(data: Uint8Array, offset: number): boolean | null {
     if (offset + 8 > data.length) return null;
-    let value = 0n;
     for (let i = 0; i < 8; i += 1) {
-        value |= BigInt(data[offset + i]) << BigInt(8 * i);
+        if (data[offset + i] !== 0) return true;
     }
-    return value;
+    return false;
 }
 
 function appendTokenAccountHolders(
-    accounts: Array<{ account: { data: Uint8Array } }>,
+    accounts: ReadonlyArray<{ account: { data: Uint8Array } }>,
     holders: Set<string>
 ): void {
     for (const raw of accounts) {
         const data = raw.account.data;
         if (data.length < TOKEN_ACCOUNT_MIN_SERIALIZED_BYTES) continue;
 
-        const amount = readU64LittleEndian(data, TOKEN_ACCOUNT_AMOUNT_OFFSET);
-        if (amount === null || amount <= 0n) continue;
+        const hasAmount = hasNonZeroU64LittleEndian(data, TOKEN_ACCOUNT_AMOUNT_OFFSET);
+        if (hasAmount !== true) continue;
 
         const ownerBytes = data.slice(TOKEN_ACCOUNT_OWNER_OFFSET, TOKEN_ACCOUNT_OWNER_OFFSET + 32);
         holders.add(new PublicKey(ownerBytes).toBase58());
@@ -341,14 +340,8 @@ export default function Dashboard() {
                                 ]);
 
                                 const holders = new Set<string>();
-                                appendTokenAccountHolders(
-                                    tokenAccounts as Array<{ account: { data: Uint8Array } }>,
-                                    holders
-                                );
-                                appendTokenAccountHolders(
-                                    token2022Accounts as Array<{ account: { data: Uint8Array } }>,
-                                    holders
-                                );
+                                appendTokenAccountHolders(tokenAccounts, holders);
+                                appendTokenAccountHolders(token2022Accounts, holders);
                                 return [mint, holders.size] as const;
                             } catch (error) {
                                 console.warn('Failed to fetch investor count for index mint', mint, error);
