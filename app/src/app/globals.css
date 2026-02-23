@@ -266,6 +266,15 @@
     transform: translateY(-1px);
   }
 
+  .wallet-adapter-dropdown {
+    position: relative;
+    z-index: 90;
+  }
+
+  .wallet-adapter-dropdown-list {
+    z-index: 100 !important;
+  }
+
   .wallet-adapter-modal-wrapper {
     @apply border border-white/14 bg-zinc-950/97;
   }

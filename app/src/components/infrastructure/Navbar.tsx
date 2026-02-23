@@ -62,8 +62,8 @@ export function Navbar() {
             </div>
 
             <nav className="sticky top-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
-                <div className="glass-card mx-auto flex w-full max-w-[1240px] flex-col gap-3 px-4 py-3 md:px-5">
-                    <div className="flex items-center justify-between gap-4">
+                <div className="glass-card overflow-visible mx-auto flex w-full max-w-[1240px] flex-col gap-3 px-4 py-3 md:px-5">
+                    <div className="relative z-50 flex items-center justify-between gap-4">
                         <Link href="/" className="flex min-w-0 items-center gap-3">
                             <div className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-lime-300 to-indigo-300 text-sm font-bold text-zinc-900">
                                 ETF
@@ -77,10 +77,6 @@ export function Navbar() {
                         </Link>
 
                         <div className="flex items-center gap-2 md:gap-3">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/30 bg-lime-300/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-lime-100">
-                                <span className="size-1.5 animate-pulse rounded-full bg-lime-300" />
-                                {networkLabel}
-                            </div>
                             <WalletMultiButtonDynamic />
                         </div>
                     </div>
